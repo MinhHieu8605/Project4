@@ -1,8 +1,7 @@
 package com.javaweb.model.dto;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 public class BuildingDTO extends AbstractDTO{                 // hứng dữ liệu từ client gửi lên
     private String name;
@@ -13,12 +12,24 @@ public class BuildingDTO extends AbstractDTO{                 // hứng dữ li�
     private Long numberOfBasement;
     private String direction;
     private Long level;
-    private Long rentArea;
-    private Long rentPrice;
+    private String rentArea;
+    private String rentPrice;
     private String managerName;
     private String managerPhone;
     private Long staffId;
     private List<String> typeCode;
+    private String structure;
+    private String rentPriceDescription;
+    private String serviceFee;
+    private String carFee;
+    private String motoFee;
+    private Double brokerageFee;
+    private String overtimeFee;
+    private String electricityFee;
+    private String deposit;
+    private String payment;
+    private String rentTime;
+    private String decorationTime;
 
     public String getName() {
         return name;
@@ -84,19 +95,19 @@ public class BuildingDTO extends AbstractDTO{                 // hứng dữ li�
         this.level = level;
     }
 
-    public Long getRentArea() {
+    public String getRentArea() {
         return rentArea;
     }
 
-    public void setRentArea(Long rentArea) {
+    public void setRentArea(String rentArea) {
         this.rentArea = rentArea;
     }
 
-    public Long getRentPrice() {
+    public String getRentPrice() {
         return rentPrice;
     }
 
-    public void setRentPrice(Long rentPrice) {
+    public void setRentPrice(String rentPrice) {
         this.rentPrice = rentPrice;
     }
 
@@ -130,5 +141,101 @@ public class BuildingDTO extends AbstractDTO{                 // hứng dữ li�
 
     public void setTypeCode(List<String> typeCode) {
         this.typeCode = typeCode;
+    }
+
+    public String getStructure() {
+        return structure;
+    }
+
+    public void setStructure(String structure) {
+        this.structure = structure;
+    }
+
+    public String getRentPriceDescription() {
+        return rentPriceDescription;
+    }
+
+    public void setRentPriceDescription(String rentPriceDescription) {
+        this.rentPriceDescription = rentPriceDescription;
+    }
+
+    public String getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public String getCarFee() {
+        return carFee;
+    }
+
+    public void setCarFee(String carFee) {
+        this.carFee = carFee;
+    }
+
+    public String getMotoFee() {
+        return motoFee;
+    }
+
+    public void setMotoFee(String motoFee) {
+        this.motoFee = motoFee;
+    }
+
+    public Double getBrokerageFee() {
+        return brokerageFee;
+    }
+
+    public void setBrokerageFee(Double brokerageFee) {
+        this.brokerageFee = brokerageFee;
+    }
+
+    public String getOvertimeFee() {
+        return overtimeFee;
+    }
+
+    public void setOvertimeFee(String overtimeFee) {
+        this.overtimeFee = overtimeFee;
+    }
+
+    public String getElectricityFee() {
+        return electricityFee;
+    }
+
+    public void setElectricityFee(String electricityFee) {
+        this.electricityFee = electricityFee;
+    }
+
+    public String getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(String deposit) {
+        this.deposit = deposit;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getRentTime() {
+        return rentTime;
+    }
+
+    public void setRentTime(String rentTime) {
+        this.rentTime = rentTime;
+    }
+
+    public String getDecorationTime() {
+        return decorationTime;
+    }
+
+    public void setDecorationTime(String decorationTime) {
+        this.decorationTime = decorationTime;
     }
 }

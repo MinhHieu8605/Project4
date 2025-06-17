@@ -35,7 +35,7 @@
                 </div><!-- /.page-header -->
 
                 <div class="row" style="font-family: 'Times New Roman', Times, serif;">
-                    <form:form modelAttribute="buildingEdit" id="listForm" method="GET">
+                    <form:form modelAttribute="buildingEdit" id="listForm" method="POST">
                         <div class="col-xs-12">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -56,67 +56,78 @@
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Phường</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="ward" name="ward" placeholder="Nhập tên phường" value="">
+<%--                                    <input class="form-control" type="text" id="ward" name="ward" placeholder="Nhập tên phường" value="">--%>
+                                    <form:input class="form-control" path="ward"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Đường</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="street" name="street" placeholder="Nhập tên đường" value="">
+<%--                                    <input class="form-control" type="text" id="street" name="street" placeholder="Nhập tên đường" value="">--%>
+                                    <form:input class="form-control" path="street"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Kết cấu</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="structure" name="structure" placeholder="Nhập kết cấu" value="">
+<%--                                    <input class="form-control" type="text" id="structure" name="structure" placeholder="Nhập kết cấu" value="">--%>
+                                    <form:input class="form-control" path="structure"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Số tầng hầm</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" id="numberOfBasement" name="numberOfBasement" value="" placeholder="Nhập số tầng hầm">
+<%--                                    <input class="form-control" type="number" id="numberOfBasement" name="numberOfBasement" value="" placeholder="Nhập số tầng hầm">--%>
+                                    <form:input class="form-control" path="numberOfBasement"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Diện tích sàn</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" id="floorArea" name="floorArea" value="" placeholder="Nhập diện tích sàn">
+<%--                                    <input class="form-control" type="number" id="floorArea" name="floorArea" value="" placeholder="Nhập diện tích sàn">--%>
+                                    <form:input class="form-control" path="floorArea"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Hướng</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="direction" name="direction" value="" placeholder="Nhập hướng">
+<%--                                    <input class="form-control" type="text" id="direction" name="direction" value="" placeholder="Nhập hướng">--%>
+                                    <form:input class="form-control" path="direction"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Hạng</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="level" name="level" value="" placeholder="Nhập hạng">
+<%--                                    <input class="form-control" type="text" id="level" name="level" value="" placeholder="Nhập hạng">--%>
+                                    <form:input class="form-control" path="level"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Diện tích thuê</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="rentArea" name="rentArea" value="" placeholder="Nhập diện tích thuê">
+<%--                                    <input class="form-control" type="text" id="rentArea" name="rentArea" value="" placeholder="Nhập diện tích thuê">--%>
+                                    <form:input class="form-control" path="rentArea"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Giá thuê</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" id="rentPrice" value="" name="rentPrice" placeholder="Nhập giá thuê">
+<%--                                    <input class="form-control" type="number" id="rentPrice" value="" name="rentPrice" placeholder="Nhập giá thuê">--%>
+                                    <form:input class="form-control" path="rentPrice"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Mô tả giá</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="rentPriceDescription" value="" name="rentPriceDescription" placeholder="Nhập mô tả giá">
+<%--                                    <input class="form-control" type="text" id="rentPriceDescription" value="" name="rentPriceDescription" placeholder="Nhập mô tả giá">--%>
+                                    <form:input class="form-control" path="rentPriceDescription"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Phí dịch vụ</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" id="serviceFee" value="" name="serviceFee" placeholder="Nhập phi dịch vụ">
+<%--                                    <input class="form-control" type="number" id="serviceFee" value="" name="serviceFee" placeholder="Nhập phi dịch vụ">--%>
+                                    <form:input class="form-control" path="serviceFee"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -170,13 +181,15 @@
                             <div class="form-group">
                                 <label for="" class="col-xs-3">Tên quản lí</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="managerName" name="managerName" value="">
+<%--                                    <input class="form-control" type="text" id="managerName" name="managerName" value="">--%>
+                                    <form:input class="form-control" path="managerName"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3">SĐT quản lí</label>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" id="managerPhoneNumber" name="managerPhoneNumber" value="">
+<%--                                    <input class="form-control" type="text" id="managerPhoneNumber" name="managerPhoneNumber" value="">--%>
+                                    <form:input class="form-control" path="managerPhone"></form:input>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -216,7 +229,6 @@
                         </form>
                     </div>
                     </form:form>
-
                 </div>
             </div><!-- /.page-content -->
         </div>
@@ -238,23 +250,27 @@
 				data["typeCode"] = typeCode;
 				if(typeCode != ""){              //typeCode bắt buộc phải có, nếu có thì mới gọi api
                     addOrUpdateBuilding(data);
-				}else window.location.href = "<c:url value="/admin/building-edit?typeCode=required"/>";
+				}else if(typeCode.length === 0){
+                    alert("Vui lòng chọn ít nhất một loại tòa nhà");
+                    return;
+                }
 
 				//call api
 				function addOrUpdateBuilding(data){
                     $.ajax({
 					type: "POST",
 					// url: "http://localhost:8081/admin/building",       // cach1
-					url: "${buildingAPI}/{ids}",      // cach2
+					url: "${buildingAPI}",      // cach2
 					data: JSON.stringify(data),       // chuyển data về dạng json
 					contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
 					dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
 					success: function(respond){
 						console.log("success");
+                        window.location.href="<c:url value="/admin/building-list?message=success"></c:url>"
 					},
 					error: function(respond){
 						console.log("failed");
-						console.log(respond);
+						window.location.href="<c:url value="/admin/building-edit?message=error"></c:url>"
 					}
 				});
 				}

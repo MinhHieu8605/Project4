@@ -111,7 +111,8 @@
                           </div>
                           <div class="col-xs-5">
                             <label for="" class="name">Đường</label>
-                            <input type="text" name="street" value="${modelSearch.street}" class="form-control" placeholder="Nhập đường">
+<%--                            <input type="text" name="street" value="${modelSearch.street}" class="form-control" placeholder="Nhập đường">--%>
+                                <form:input class="form-control" path="street"></form:input>
                           </div>
                         </div>
                       </div>
@@ -120,15 +121,18 @@
                         <div class="col-xs-12" style="margin-bottom: 10px;">
                           <div class="col-xs-4">
                             <label for="" class="name">Số tầng hầm</label>
-                            <input type="text" name="numberOfBasement" value="" class="form-control" placeholder="Nhập số tầng hầm">
+<%--                            <input type="text" name="numberOfBasement" value="" class="form-control" placeholder="Nhập số tầng hầm">--%>
+                                <form:input class="form-control" path="numberOfBasement"></form:input>
                           </div>
                           <div class="col-xs-4">
                             <label for="" class="name">Hướng</label>
-                            <input type="number" name="direction" value="" class="form-control" placeholder="Nhập hướng">
+<%--                            <input type="number" name="direction" value="" class="form-control" placeholder="Nhập hướng">--%>
+                            <form:input class="form-control" path="direction"></form:input>
                           </div>
                           <div class="col-xs-4">
                             <label for="" class="name">Hạng</label>
-                            <input type="number" name="level" value="" class="form-control" placeholder="Nhập hạng">
+<%--                            <input type="number" name="level" value="" class="form-control" placeholder="Nhập hạng">--%>
+                            <form:input class="form-control" path="level"></form:input>
                           </div>
                         </div>
                       </div>
@@ -136,20 +140,25 @@
                       <div class="form-group">
                         <div class="col-xs-12" style="margin-bottom: 10px;">
                           <div class="col-xs-3">
+
                             <label for="" class="name">Diện tích từ</label>
-                            <input type="number" name="areaFrom" value="" class="form-control" placeholder="Nhập diện tích từ">
+<%--                            <input type="number" name="areaFrom" value="" class="form-control" placeholder="Nhập diện tích từ">--%>
+                            <form:input class="form-control" path="areaFrom"></form:input>
                           </div>
                           <div class="col-xs-3">
                             <label for="" class="name">Diện tích đến</label>
-                            <input type="number" name="areaTo" value="" class="form-control" placeholder="Nhập diện tích đến">
+<%--                            <input type="number" name="areaTo" value="" class="form-control" placeholder="Nhập diện tích đến">--%>
+                            <form:input class="form-control" path="areaTo"></form:input>
                           </div>
                           <div class="col-xs-3">
                             <label for="" class="name">Giá thuê từ</label>
-                            <input type="number" name="rentPriceFrom" value="" class="form-control" placeholder="Nhập giá thuê từ">
+<%--                            <input type="number" name="rentPriceFrom" value="" class="form-control" placeholder="Nhập giá thuê từ">--%>
+                            <form:input class="form-control" path="rentPriceFrom"></form:input>
                           </div>
                           <div class="col-xs-3">
                             <label for="" class="name">Giá thuê đến</label>
-                            <input type="number" name="rentPriceTo" value="" class="form-control" placeholder="Nhập giá thuê đến">
+<%--                            <input type="number" name="rentPriceTo" value="" class="form-control" placeholder="Nhập giá thuê đến">--%>
+                            <form:input class="form-control" path="rentPriceTo"></form:input>
                           </div>
 
                         </div>
@@ -159,11 +168,13 @@
                         <div class="col-xs-12" style="margin-bottom: 10px;">
                           <div class="col-xs-5">
                             <label for="" class="name">Tên quản lí</label>
-                            <input type="text" name="managerName" value="" class="form-control" placeholder="Nhập phường">
+<%--                            <input type="text" name="managerName" value="" class="form-control" placeholder="Nhập phường">--%>
+                            <form:input class="form-control" path="managerName"></form:input>
                           </div>
                           <div class="col-xs-5">
                             <label for="" class="name">SDT quản lí</label>
                             <input type="text" name="managerPhoneNumber" value="" class="form-control" placeholder="Nhập đường">
+<%--                            <form:input class="form-control" path="managerPhone"></form:input>--%>
                           </div>
                           <div class="col-xs-2">
                             <label for="" class="name">Nhân viên</label>
@@ -186,7 +197,7 @@
                       <div class="form-group">
                         <div class="col-xs-12">
                           <div class="col-xs-6">
-                            <button type="button" class="btn btn-danger" id="btnSearchBuilding">
+                            <button class="btn btn-danger" id="btnSearchBuilding">
                               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
                               </svg>
@@ -228,26 +239,26 @@
           <div class="col-xs-12">
             <table id="tableList" class="table table-striped table-bordered table-hover" style="font-family: 'Times New Roman', Times, serif;">
               <thead>
-              <tr>
-                <th class="center">
-                  <label class="pos-rel">
-                    <input type="checkbox" class="ace" name="checkList" value="">
-                    <span class="lbl"></span>
-                  </label>
-                </th>
-                <th>Tên tòa nhà</th>
-                <th>Địa chỉ</th>
-                <th>Số tầng hầm</th>
-                <th>Tên quản lí</th>
-                <th>Số điện thoại</th>
-                <th>DT sàn</th>
-                <th>DT trống</th>
-                <th>DT thuê</th>
-                <th>Giá thuê</th>
-                <th>Phí dịch vụ</th>
-                <th>Phí môi giới</th>
-                <th>Thao tác</th>
-              </tr>
+                <tr>
+                  <th class="center">
+                    <label class="pos-rel">
+                      <input type="checkbox" class="ace" name="checkList" value="">
+                      <span class="lbl"></span>
+                    </label>
+                  </th>
+                  <th>Tên tòa nhà</th>
+                  <th>Địa chỉ</th>
+                  <th>Số tầng hầm</th>
+                  <th>Tên quản lí</th>
+                  <th>Số điện thoại</th>
+                  <th>DT sàn</th>
+                  <th>DT trống</th>
+                  <th>DT thuê</th>
+                  <th>Giá thuê</th>
+                  <th>Phí dịch vụ</th>
+                  <th>Phí môi giới</th>
+                  <th>Thao tác</th>
+                </tr>
               </thead>
 
               <tbody>
@@ -325,7 +336,48 @@
                   </td>
                 </tr>
               </c:forEach>
+<%--              <form:form modelAttribute="buildingList">--%>
+<%--                <display:table name="buildingList.listResult" cellspacing="0" cellpadding="6"--%>
+<%--                               requestURI="${buildingListURL}" partialList="true" sort="external"--%>
+<%--                               size="${buildingList.totalItems}" defaultsort="2" defaultorder="ascending"--%>
+<%--                               id="tableList" pagesize="${buildingList.maxPageItems}"--%>
+<%--                               export="false"--%>
+<%--                               class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"--%>
+<%--                               style="margin: 30m 0 1.5em;">--%>
+<%--                  <display:column title="<fieldset class='form-group'>--%>
+<%--                                 <input type='checkbox' id='checkAll' class='check-box-element'>--%>
+<%--                                 </fieldset>" class="center select-cell"--%>
+<%--                                 headerClass="center select-cell">--%>
 
+<%--                      <fieldset>--%>
+<%--                        <input type="checkbox" name="checkList" value="${tableList.id}"--%>
+<%--                        id="checkbox_${tableList.id}" class="check-box-element"/>--%>
+<%--                      </fieldset>--%>
+<%--                  </display:column>--%>
+<%--                  <display:column headerClass="text-left" property="name" title="Tên tòa nhà"/>--%>
+<%--                  <display:column headerClass="text-left" property="address" title="Địa chỉ"/>--%>
+<%--                  <display:column headerClass="text-left" property="numberOfBasement" title="Số tầng hầm"/>--%>
+<%--                  <display:column headerClass="text-left" property="managerName" title="Tên quản li"/>--%>
+<%--                  <display:column headerClass="text-left" property="managerPhone" title="SĐT quản lí"/>--%>
+<%--                  <display:column headerClass="text-left" property="floorArea" title="D.tích sàn"/>--%>
+<%--                  <display:column headerClass="text-left" property="floorArea" title="D.tích trống"/>--%>
+<%--                  <display:column headerClass="text-left" property="floorArea" title="Phí môi giới"/>--%>
+
+<%--                  <display:column headerClass="col-actions" title="Thao tác">--%>
+<%--                    <a class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">&ndash;%&gt;--%>
+<%--                      <i class="ace-icon glyphicon glyphicon-list"></i>--%>
+<%--                    </a>--%>
+
+<%--                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">--%>
+<%--                      <i class="ace-icon fa fa-pencil bigger-120"></i>--%>
+<%--                    </a>--%>
+
+<%--                    <a class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">--%>
+<%--                      <i class="ace-icon fa fa-trash-o bigger-120"></i>--%>
+<%--                    </a>--%>
+<%--                  </display:column>--%>
+<%--                </display:table>--%>
+<%--              </form:form>--%>
               </tbody>
             </table>
           </div><!-- /.span -->
@@ -452,6 +504,8 @@
               dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
               success: function(response){
                   console.info("success");
+                  alert("Giao tòa nhà thành công");
+                  window.location.href = "<c:url value="/admin/building-list"></c:url>"
               },
               error: function(response){
                   console.info("failed");
@@ -470,17 +524,17 @@
         var buildingId = [id];
         deleteBuildings(buildingId);
       }
-      $('#btnSearchBuilding').click(function(e){
+      $('#btnDeleteBuilding').click(function(e){
           e.preventDefault();
           var buildingIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function(){
             //map:Duyệt qua từng checkbox đã chọn và trả về giá trị (value) của từng checkbox đó.
             return $(this).val();
           }).get();    // Chuyển đối tượng jQuery (jQuery object) thành mảng thông thường (Array) chứa danh sách các giá trị.
-          deleteBuildings()
+          deleteBuilding(buildingIds);
       });
       function deleteBuildings(id){
           $.ajax({
-              type: "delete",
+              type: "DELETE",
               // url: "http://localhost:8081/admin/building",
               url: "${buildingAPI}/" + id,
               data: JSON.stringify(id),       // chuyển data về dạng json
@@ -488,6 +542,7 @@
               dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
               success: function(respond){
                   console.log("success");
+                  window.location.href = "<c:url value="/admin/building-list?message=success"></c:url>"
               },
               error: function(respond){
                   console.log("failed");
@@ -495,6 +550,7 @@
               }
           });
       }
+
   </script>
   </body>
   </html>

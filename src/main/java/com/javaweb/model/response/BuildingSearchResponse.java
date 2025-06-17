@@ -3,7 +3,7 @@ package com.javaweb.model.response;
 
 import com.javaweb.model.dto.AbstractDTO;
 
-public class BuildingSearchResponse extends AbstractDTO {
+public class BuildingSearchResponse extends AbstractDTO {                    // trả dữ liệu ra cho client
 	private Long id;
 	private String createdDate;
 	private String name;

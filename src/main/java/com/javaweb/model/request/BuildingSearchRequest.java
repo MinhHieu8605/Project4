@@ -4,7 +4,7 @@ import com.javaweb.model.dto.AbstractDTO;
 
 import java.util.List;
 
-public class BuildingSearchRequest extends AbstractDTO {
+public class BuildingSearchRequest extends AbstractDTO {         //nhận dữ liệu vào từ client
     private String name;
     private Long floorArea;
     private String district;
@@ -12,7 +12,7 @@ public class BuildingSearchRequest extends AbstractDTO {
     private String street;
     private Long numberOfBasement;
     private String direction;
-    private Long level;
+    private String level;
     private Long areaFrom;
     private Long areaTo;
     private Long rentPriceFrom;
@@ -50,6 +50,7 @@ public class BuildingSearchRequest extends AbstractDTO {
     public List<String> getTypeCode() {
         return typeCode;
     }
+
 
     public void setTypeCode(List<String> typeCode) {
         this.typeCode = typeCode;
@@ -143,11 +144,12 @@ public class BuildingSearchRequest extends AbstractDTO {
         this.direction = direction;
     }
 
-    public Long getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Long level) {
+    public void setLevel(String level) {
         this.level = level;
     }
+
 }

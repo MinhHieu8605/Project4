@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "building")
-public class BuildingEntity {
+public class BuildingEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,15 +44,40 @@ public class BuildingEntity {
     @Column(name="managerphone")
     private String managerphone;
 
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "BuildingEntity")
-//    List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="assignmentbuilding",
-            joinColumns = @JoinColumn(name="buildingid", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="staffid", nullable = false))
-    private List<UserEntity> userEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
+    private List<RentAreaEntity> rentArea = new ArrayList<>();
 
+    public List<RentAreaEntity> getRentArea() {
+        return rentArea;
+    }
 
+    public void setRentArea(List<RentAreaEntity> rentArea) {
+        this.rentArea = rentArea;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
+    List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
+
+    public List<AssignBuildingEntity> getAssignBuildingEntities() {
+        return assignBuildingEntities;
+    }
+
+    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
+        this.assignBuildingEntities = assignBuildingEntities;
+    }
+//        @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name="assignmentbuilding",
+//            joinColumns = @JoinColumn(name="buildingid", nullable = false),
+//            inverseJoinColumns = @JoinColumn(name="staffid", nullable = false))
+//    private List<UserEntity> userEntities = new ArrayList<>();
+//
+//    public List<UserEntity> getUserEntities() {
+//        return userEntities;
+//    }
+//
+//    public void setUserEntities(List<UserEntity> userEntities) {
+//        this.userEntities = userEntities;
+//    }
 
     public String getManagerphone() {
         return managerphone;
@@ -62,13 +87,6 @@ public class BuildingEntity {
         this.managerphone = managerphone;
     }
 
-    public List<UserEntity> getUserEntities() {
-        return userEntities;
-    }
-
-    public void setUserEntities(List<UserEntity> userEntities) {
-        this.userEntities = userEntities;
-    }
 
     public Long getId() {
         return id;
@@ -157,6 +175,4 @@ public class BuildingEntity {
     public void setManagername(String managername) {
         this.managername = managername;
     }
-
-
 }

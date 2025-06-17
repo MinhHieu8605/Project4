@@ -2,9 +2,13 @@ package com.javaweb.api.admin;
 
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
+import com.javaweb.model.request.BuildingSearchRequest;
+import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.service.AssignmentBuildingService;
 import com.javaweb.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,16 +19,24 @@ public class BuildingAPI {
 
     @Autowired
     private BuildingService buildingService;
+    @Autowired
+    private AssignmentBuildingService assignmentBuildingService;
+
+    @GetMapping
+    public List<BuildingSearchResponse> getBuildings(@ModelAttribute BuildingSearchRequest buildingSearchRequest) {
+        List<BuildingSearchResponse> res = buildingService.findAll(buildingSearchRequest);
+        return res;
+    }
 
     @PostMapping
-    public BuildingDTO createBuilding(@RequestBody BuildingDTO buildingDTO) {
+    public ResponseEntity<BuildingDTO> addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         // xuống db để update or thêm
-        return buildingDTO;
+        return ResponseEntity.ok(buildingService.addOrUpdateBuilding(buildingDTO));
     }
 
     @DeleteMapping("/{ids}")
     public void deleteBuilding(@PathVariable List<Long> ids) {
-        System.out.println("Ok");
+        buildingService.deleteBuildings(ids);
     }
 
     @GetMapping("/{id}/staffs")
@@ -34,7 +46,10 @@ public class BuildingAPI {
     }
 
     @PostMapping("/assignment")
-    public void updateAsssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
-        System.out.println("Ok");
+    public ResponseEntity<ResponseDTO> updateAsssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
+        assignmentBuildingService.addAssignmentBuildingEntity(assignmentBuildingDTO);
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setMessage("Successfully added assignment building");
+        return ResponseEntity.ok(responseDTO);
     }
 }
