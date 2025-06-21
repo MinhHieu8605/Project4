@@ -44,7 +44,7 @@ public class BuildingEntity extends BaseEntity {
     @Column(name="managerphone")
     private String managerphone;
 
-    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "building", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<RentAreaEntity> rentArea = new ArrayList<>();
 
     public List<RentAreaEntity> getRentArea() {
@@ -55,29 +55,29 @@ public class BuildingEntity extends BaseEntity {
         this.rentArea = rentArea;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
-    List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
-
-    public List<AssignBuildingEntity> getAssignBuildingEntities() {
-        return assignBuildingEntities;
-    }
-
-    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
-        this.assignBuildingEntities = assignBuildingEntities;
-    }
-//        @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name="assignmentbuilding",
-//            joinColumns = @JoinColumn(name="buildingid", nullable = false),
-//            inverseJoinColumns = @JoinColumn(name="staffid", nullable = false))
-//    private List<UserEntity> userEntities = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
+//    List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
 //
-//    public List<UserEntity> getUserEntities() {
-//        return userEntities;
+//    public List<AssignBuildingEntity> getAssignBuildingEntities() {
+//        return assignBuildingEntities;
 //    }
 //
-//    public void setUserEntities(List<UserEntity> userEntities) {
-//        this.userEntities = userEntities;
+//    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
+//        this.assignBuildingEntities = assignBuildingEntities;
 //    }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="assignmentbuilding",
+            joinColumns = @JoinColumn(name="buildingid", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="staffid", nullable = false))
+    private List<UserEntity> userEntities = new ArrayList<>();
+
+    public List<UserEntity> getUserEntities() {
+        return userEntities;
+    }
+
+    public void setUserEntities(List<UserEntity> userEntities) {
+        this.userEntities = userEntities;
+    }
 
     public String getManagerphone() {
         return managerphone;

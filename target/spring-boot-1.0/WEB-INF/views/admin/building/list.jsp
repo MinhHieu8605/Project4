@@ -503,12 +503,10 @@
               contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
               dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
               success: function(response){
-                  console.info("success");
                   alert("Giao tòa nhà thành công");
                   window.location.href = "<c:url value="/admin/building-list"></c:url>"
               },
               error: function(response){
-                  console.info("failed");
                   window.location.href = "<c:url value="/admin/building-list?message=error"></c:url>"
                   console.log(response);
               }

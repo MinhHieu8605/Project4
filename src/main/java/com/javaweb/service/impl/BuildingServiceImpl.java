@@ -7,6 +7,7 @@ import com.javaweb.entity.AssignBuildingEntity;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
@@ -44,18 +45,14 @@ public class BuildingServiceImpl implements BuildingService {
     @Autowired
     private RentAreaService rentAreaService;
 
-    @Autowired
-    private AssignmentBuildingService assignmentBuildingService;
+//    @Autowired
+//    private AssignmentBuildingService assignmentBuildingService;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
         BuildingEntity building = buildingRepository.findById(buildingId).get();
         List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "staff");
-//        List<UserEntity> staffAssignment = building.getUserEntities();
-        List<UserEntity> staffAssignment = building.getAssignBuildingEntities()
-                .stream()
-                .map(AssignBuildingEntity::getUserEntity)
-                .collect(Collectors.toList());
+        List<UserEntity> staffAssignment = building.getUserEntities();
         List<StaffResponseDTO> staffResponseDTOS = new ArrayList<>();
         ResponseDTO responseDTO = new ResponseDTO();
         for (UserEntity it : staffs) {
@@ -88,10 +85,8 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingDTO addOrUpdateBuilding(BuildingDTO buildingDTO){
 //        Long buildingId = buildingDTO.getId();
-        BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
-        buildingEntity.setType(String.join(",", buildingDTO.getTypeCode()));
-        buildingRepository.save(buildingEntity);             // save: có id là update, không có là thêm mới
-        if(StringUtils.check(buildingDTO.getRentArea())) rentAreaService.addRentArea(buildingDTO);
+        BuildingEntity buildingEntity = buildingDTOConverter.toBuildingEntity(buildingDTO);
+        buildingRepository.save(buildingEntity);
         return buildingDTO;
     }
 
@@ -110,12 +105,28 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public void deleteBuildings(List<Long> ids){
-        rentAreaService.deleteByBuildings(ids);
-        assignmentBuildingService.deleteByBuildingsIn(ids);
-        for(Long id : ids){
-            buildingRepository.deleteById(id);
-        }
+    public BuildingDTO deleteBuildings(List<Long> ids){
+        BuildingEntity buildingEntity = buildingRepository.findById(ids.get(0)).get();
+//        for(Long id : ids){            // cách 1
+//            buildingRepository.deleteById(id);
+//        }
+        buildingRepository.deleteByIdIn(ids);        // cách 2
+        return buildingDTOConverter.toBuildingDTO(buildingEntity);
+    }
+
+    @Override
+    public AssignmentBuildingDTO addAssignmentBuildingEntity(AssignmentBuildingDTO assignmentBuildingDTO){
+        BuildingEntity buildingEntity = buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get();
+//        List<UserEntity> userEntities = new ArrayList<>();           // cách 1
+//        List<Long> staffIds = assignmentBuildingDTO.getStaffs();
+//        for(Long id : staffIds){
+//            UserEntity userEntity = userRepository.findById(id).get();
+//            userEntities.add(userEntity);
+//        }
+        List<UserEntity> userEntities = userRepository.findByIdIn(assignmentBuildingDTO.getStaffs());    // cách 2
+        buildingEntity.setUserEntities(userEntities);
+        buildingRepository.save(buildingEntity);
+        return assignmentBuildingDTO;
     }
 
 //    @Override

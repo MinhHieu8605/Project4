@@ -21,16 +21,16 @@ public class RentAreaServiceImpl implements RentAreaService {
     @Autowired
     private RentAreaRepository rentAreaRepository;
 
-    @Override
-    public void addRentArea(BuildingDTO buildingDTO){
-        BuildingEntity buildingEntity = buildingRepository.findById(buildingDTO.getId()).get();
-        rentAreaRepository.deleteByBuilding(buildingEntity);    //Xóa hết các RentAreaEntity có building.id đó
-        String[] rentAreas = buildingDTO.getRentArea().trim().split(",");
-        for (String val : rentAreas) {
-            RentAreaEntity rentAreaEntity = rentAreaConverter.toRentAreaEntity(buildingDTO, Long.parseLong(val));
-            rentAreaRepository.save(rentAreaEntity);
-        }
-    }
+//    @Override
+//    public void addRentArea(BuildingDTO buildingDTO){
+//        BuildingEntity buildingEntity = buildingRepository.findById(buildingDTO.getId()).get();
+//        rentAreaRepository.deleteByBuilding(buildingEntity);    //Xóa hết các RentAreaEntity có building.id đó
+//        String[] rentAreas = buildingDTO.getRentArea().trim().split(",");
+//        for (String val : rentAreas) {
+//            RentAreaEntity rentAreaEntity = rentAreaConverter.toRentAreaEntity(buildingDTO, Long.parseLong(val));
+//            rentAreaRepository.save(rentAreaEntity);
+//        }
+//    }
 
     @Override
     public void deleteByBuildings(List<Long> ids){

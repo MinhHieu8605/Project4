@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface AssignmentBuildingRepository extends JpaRepository<AssignBuildingEntity, Long> {
+public interface AssignmentBuildingRepository{
     void deleteByBuildingEntity(BuildingEntity buildingEntity);
 //    void deleteByBuildingEntityIdIn(List<Long> ids);
-    List<AssignBuildingEntity> findByBuildingEntity(BuildingEntity buildingEntity);
+//    List<AssignBuildingEntity> findByBuildingEntity(BuildingEntity buildingEntity);
 
 }

@@ -7,6 +7,7 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.AssignmentBuildingService;
 import com.javaweb.service.BuildingService;
+import com.javaweb.service.impl.BuildingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +20,22 @@ public class BuildingAPI {
 
     @Autowired
     private BuildingService buildingService;
+//    @Autowired
+//    private AssignmentBuildingService assignmentBuildingService;
     @Autowired
-    private AssignmentBuildingService assignmentBuildingService;
+    private BuildingServiceImpl buildingServiceImpl;
 
     @GetMapping
     public List<BuildingSearchResponse> getBuildings(@ModelAttribute BuildingSearchRequest buildingSearchRequest) {
         List<BuildingSearchResponse> res = buildingService.findAll(buildingSearchRequest);
         return res;
     }
+
+//    @PostMapping
+//    public ResponseEntity<BuildingDTO> addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
+//        // xuống db để update or thêm
+//        return ResponseEntity.ok(buildingService.addOrUpdateBuilding(buildingDTO));
+//    }
 
     @PostMapping
     public ResponseEntity<BuildingDTO> addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
@@ -35,8 +44,8 @@ public class BuildingAPI {
     }
 
     @DeleteMapping("/{ids}")
-    public void deleteBuilding(@PathVariable List<Long> ids) {
-        buildingService.deleteBuildings(ids);
+    public ResponseEntity<BuildingDTO> deleteBuilding(@PathVariable List<Long> ids) {
+        return ResponseEntity.ok(buildingService.deleteBuildings(ids));
     }
 
     @GetMapping("/{id}/staffs")
@@ -47,7 +56,7 @@ public class BuildingAPI {
 
     @PostMapping("/assignment")
     public ResponseEntity<ResponseDTO> updateAsssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
-        assignmentBuildingService.addAssignmentBuildingEntity(assignmentBuildingDTO);
+        buildingServiceImpl.addAssignmentBuildingEntity(assignmentBuildingDTO);
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Successfully added assignment building");
         return ResponseEntity.ok(responseDTO);

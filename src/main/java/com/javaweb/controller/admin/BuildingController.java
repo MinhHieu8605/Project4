@@ -58,6 +58,7 @@ public class BuildingController {
         ModelAndView mav = new ModelAndView("admin/building/edit");
         //xuống db tìm building theo id
         BuildingDTO buildingDTO = buildingService.findById(id);
+        System.out.println(buildingService.findById(id));
         mav.addObject("buildingEdit", buildingDTO);
         mav.addObject("districts", districtCode.type());
         mav.addObject("typeCodes", buildingType.type());

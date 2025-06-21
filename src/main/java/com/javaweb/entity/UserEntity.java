@@ -35,19 +35,19 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
     private List<RoleEntity> roles = new ArrayList<>();
 
-//    @ManyToMany(mappedBy = "userEntities", fetch = FetchType.LAZY)
-//    List<BuildingEntity> buildingEntities = new ArrayList<>();
+    @ManyToMany(mappedBy = "userEntities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<BuildingEntity> buildingEntities = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
-
-    public List<AssignBuildingEntity> getAssignBuildingEntities() {
-        return assignBuildingEntities;
-    }
-
-    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
-        this.assignBuildingEntities = assignBuildingEntities;
-    }
+//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
+//
+//    public List<AssignBuildingEntity> getAssignBuildingEntities() {
+//        return assignBuildingEntities;
+//    }
+//
+//    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
+//        this.assignBuildingEntities = assignBuildingEntities;
+//    }
 
     //    @OneToMany(mappedBy="staffs", fetch = FetchType.LAZY)
 //    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
@@ -56,13 +56,13 @@ public class UserEntity extends BaseEntity {
 //    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
 
 
-//    public List<BuildingEntity> getBuildingEntities() {
-//        return buildingEntities;
-//    }
-//
-//    public void setBuildingEntities(List<BuildingEntity> buildingEntities) {
-//        this.buildingEntities = buildingEntities;
-//    }
+    public List<BuildingEntity> getBuildingEntities() {
+        return buildingEntities;
+    }
+
+    public void setBuildingEntities(List<BuildingEntity> buildingEntities) {
+        this.buildingEntities = buildingEntities;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

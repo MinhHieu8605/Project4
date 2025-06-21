@@ -2,6 +2,7 @@ package com.javaweb.converter;
 
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
+import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.utils.DistrictCode;
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,8 @@ public class BuildingDTOConverter {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private RentAreaConverter rentAreaConverter;
 
     public BuildingSearchResponse toBuildingSearchResponse(BuildingEntity buildingEntity) {
         BuildingSearchResponse res = modelMapper.map(buildingEntity, BuildingSearchResponse.class);
@@ -33,5 +36,17 @@ public class BuildingDTOConverter {
             res.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + "," + districtName );
         }
         return res;
+    }
+
+
+    public BuildingDTO toBuildingDTO(BuildingEntity buildingEntity) {
+        return modelMapper.map(buildingEntity, BuildingDTO.class);
+    }
+
+    public BuildingEntity toBuildingEntity(BuildingDTO buildingDTO) {
+        BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
+        buildingEntity.setType(String.join(",", buildingDTO.getTypeCode()));
+        buildingEntity.setRentArea(rentAreaConverter.toRentAreaEntityList(buildingDTO, buildingEntity));
+        return buildingEntity;
     }
 }
