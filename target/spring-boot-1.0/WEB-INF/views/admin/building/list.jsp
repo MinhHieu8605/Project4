@@ -81,19 +81,19 @@
 <%--                  buildingListURL đã khai báo link ở dòng 3--%>
                     <div class="row">
                       <div class="form-group">
-                      <div class="col-xs-12" style="margin-bottom: 10px;">
-                        <div class="col-xs-6">
-                          <label for="" class="name">Tên tòa nhà</label>
-<%--                          <input type="text" name="name" id="name" value="${modelSearch.name}" class="form-control" placeholder="Nhập tên tòa nhà">--%>
-                              <form:input class="form-control" path="name"></form:input>
-                        </div>
-                        <div class="col-xs-6">
-                          <label for="" class="name">Diện tích sàn</label>
-<%--                          <input type="number" name="floorArea" id="floorArea" value="${modelSearch.floorArea}" class="form-control" placeholder="Nhập diện tích sàn">--%>
-                              <form:input class="form-control" path="floorArea"></form:input>
+                        <div class="col-xs-12" style="margin-bottom: 10px;">
+                          <div class="col-xs-6">
+                            <label for="" class="name">Tên tòa nhà</label>
+  <%--                          <input type="text" name="name" id="name" value="${modelSearch.name}" class="form-control" placeholder="Nhập tên tòa nhà">--%>
+                                <form:input class="form-control" path="name"></form:input>
+                          </div>
+                          <div class="col-xs-6">
+                            <label for="" class="name">Diện tích sàn</label>
+  <%--                          <input type="number" name="floorArea" id="floorArea" value="${modelSearch.floorArea}" class="form-control" placeholder="Nhập diện tích sàn">--%>
+                                <form:input class="form-control" path="floorArea"></form:input>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
                       <div class="form-group">
                         <div class="col-xs-12" style="margin-bottom: 10px;">
@@ -395,7 +395,6 @@
 <!-- Modal -->
   <div class="modal fade" id="assignmentBuildingModal" role="dialog" style="font-family: 'Times New Roman', Times, serif;">
     <div class="modal-dialog">
-
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -460,12 +459,14 @@
               // contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
               dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
               success: function(response){
+                  console.log(response);
                   var row = '';
                   $.each(response.data, function (i, item){
+                    console.log(item);
                     row += '<tr>';
                     row += '<td class="text-center"><input type="checkbox" value="' + item.staffId + '" id="checkbox_' + item.staffId + '"' + item.checked + '></td>';
                     row += '<td class="text-center">' + item.fullName + '</td>';
-                    row += '</tr>'
+                    row += '</tr>';
                   });
                   $('#staffList tbody').html(row);
                   console.info("success");
@@ -477,6 +478,7 @@
               }
           });
       }
+
 
 
       $('#btnassignmentBuilding').click(function(e){

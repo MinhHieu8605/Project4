@@ -85,7 +85,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Map<Long, String> getStaffs() {
+    public Map<Long, String>  getStaffs() {
         Map<Long, String> listStaffs = new HashMap<>();        // vì map dạng key, value mà key thì không được trùng nên id sẽ là key
         List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
         for(UserEntity item : staffs){
@@ -93,6 +93,7 @@ public class UserService implements IUserService {
         }
         return listStaffs;
     }
+
 
 
     @Override

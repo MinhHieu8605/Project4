@@ -789,7 +789,7 @@
                                               action="//dkt.us13.list-manage.com/subscribe/post?u=0bafe4be7e17843051883e746&amp;id=3bdd6e9e3b"
                                               method="post" id="mc-embedded-subscribe-form"
                                               name="mc-embedded-subscribe-form" target="_blank">
-                                            <input type="email" value="" placeholder="Nhập địa chỉ email của bạn.."
+                                            <input type="text" value="" placeholder="Nhập địa chỉ email của bạn.."
                                                    name="EMAIL" id="mail"
                                                    aria-label="general.newsletter_form.newsletter_email">
                                             <button class="button-subscribe button-45 subscribe" name="subscribe"

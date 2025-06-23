@@ -31,12 +31,6 @@ public class BuildingAPI {
         return res;
     }
 
-//    @PostMapping
-//    public ResponseEntity<BuildingDTO> addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
-//        // xuống db để update or thêm
-//        return ResponseEntity.ok(buildingService.addOrUpdateBuilding(buildingDTO));
-//    }
-
     @PostMapping
     public ResponseEntity<BuildingDTO> addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         // xuống db để update or thêm
