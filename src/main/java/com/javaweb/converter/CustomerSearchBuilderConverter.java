@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 public class CustomerSearchBuilderConverter {
     public CustomerSearchBuilder toCustomerSearchBuilder(CustomerSearchRequest customerSearchRequest) {
         CustomerSearchBuilder customerSearchBuilder = new CustomerSearchBuilder.Builder()
-                .setFullName(customerSearchRequest.getFullName())
+                .setFullName(customerSearchRequest.getName())
                 .setEmail(customerSearchRequest.getEmail())
-                .setPhone(customerSearchRequest.getPhone())
+                .setPhone(customerSearchRequest.getCustomerPhone())
                 .setStaffId(customerSearchRequest.getStaffId())
                 .build();
         return customerSearchBuilder;

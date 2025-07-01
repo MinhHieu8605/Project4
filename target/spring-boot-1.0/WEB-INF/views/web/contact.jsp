@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="/common/taglib.jsp" %>
+<c:url var="customerEditListURL" value="/admin/customer-edit"></c:url>
+<c:url var="customerAPI" value="/api/customer/"></c:url>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -97,40 +98,40 @@
                         <ul class="margin-bottom-15 link" style="list-style-type: none;">
                             <li>
                                 <span class="block_fonticon"><i class="fa fa-map-marker icon-lienhe"></i></span>
-                                <span class="title-li"> 46 Man Thiện, TP. Thủ Đức, TP. HCM</span>
+                                <span class="title-li"> 35 Thái Thịnh, Đống Đa, Hà Nội</span>
                             </li>
                             <li>
                                 <span class="block_fonticon"><i class="fa fa-mobile icon-lienhe"></i></span>
                                 <span class="title-li">
-                                        Hotline: <a style="color: #434a6e;" class="fone" href="">0922227</a>
+                                        Hotline: <a style="color: #434a6e;" class="fone" href="">0799245982</a>
 
                                     </span>
                             </li>
                             <li>
                                 <span class="block_fonticon"><i class="fa fa-envelope icon-lienhe"></i></span>
                                 <span class="title-li">Email: <a style="color: #434a6e;"
-                                                                 href="">vsh@gmail.com</a></span>
+                                                                 href="">hieutoyhb@gmail.com</a></span>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <h2 class="title-lienhe"><strong>Liên hệ với chúng tôi</strong></h2>
-                    <form>
+                    <form:form id="formContact" modelAttribute="modelContact" action="/lien-he" method="GET">
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Họ và tên">
+                                <form:input class="form-control" placeholder="Họ và tên" path="name"></form:input>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Email">
+                                <form:input class="form-control" placeholder="Email" path="email"/>
                             </div>
                         </div>
-                        <input type="text" class="form-control mt-3" placeholder="Số điện thoại">
-                        <input type="text" class="form-control mt-3" placeholder="Nội dung">
-                        <button class="btn btn-primary px-4 mt-3">
+                        <form:input class="form-control mt-3" placeholder="Số điện thoại" path="customerPhone"/>
+                        <form:input class="form-control mt-3" placeholder="Nội dung" path="demand" />
+                        <button type="button" class="btn btn-primary px-4 mt-3" id="btnContact">
                             Gửi liên hệ
                         </button>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>
@@ -153,16 +154,16 @@
                                 </div>
                                 <div class="content-center-footer">
                                     <p class="mb-1 mt-3">Trụ sở chính</p>
-                                    <p class="desc-footer">Số 46 Man Thiện, TP Thủ Đức, TP HCM</p>
+                                    <p class="desc-footer">35 Thái Thịnh - Đống Đa - Hà Nội</p>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 text-center">
                                 <div class="icon-footer">
-                                    <img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/place_phone.png?1676257083798 alt="">
+                                    <img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/place_phone.png?1676257083798" alt="">
                                 </div>
                                 <div class="content-center-footer">
                                     <p class="mb-1 mt-3">Hotline</p>
-                                    <p class="desc-footer"><a class="a-text" href="#">098828</a></p>
+                                    <p class="desc-footer"><a class="a-text" href="#">0799245982</a></p>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 text-center">
@@ -171,7 +172,7 @@
                                 </div>
                                 <div class="content-center-footer">
                                     <p class="mb-1 mt-3">Email</p>
-                                    <p class="desc-footer"><a class="a-text" href="#">vsh@gmail.com</a>
+                                    <p class="desc-footer"><a class="a-text" href="#">hieutoyhb@gmail.com</a>
                                     </p>
                                 </div>
                             </div>
@@ -233,6 +234,45 @@
         </div>
     </footer>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $('#btnContact').click(function (e){
+        e.preventDefault();
+        var data = {};
+        data['status'] = 'CHUA_XL';
+        var formData = $('#formContact').serializeArray();
+        $.each(formData, function (i, item){
+            data[item.name] = item.value;
+        });
+        if((!data['customerPhone'] || data['customerPhone'].trim() === "")){
+                alert("Vui lòng nhập số điện thoại");
+            }else if(!data['name'] || data['name'].trim() === ""){
+                alert("Vui lòng nhập tên khách hàng")
+            }else{
+                addContact(data);
+            }
+    });
+
+    function addContact(data){
+        $.ajax({
+            type: "POST",
+            url: "${customerAPI}",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+            success: function(respond){
+                console.log("success");
+                alert("Bạn đã gửi liên hệ thành công!")
+                window.location.href="<c:url value="/lien-he?message=success"></c:url>"
+            },
+            error: function(respond){
+                console.log("failed");
+                window.location.href="<c:url value="/lien-he?message=error"></c:url>"
+            }
+        });
+    }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>

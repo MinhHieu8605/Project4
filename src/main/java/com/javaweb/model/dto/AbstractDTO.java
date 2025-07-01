@@ -17,12 +17,14 @@ public class AbstractDTO<T> implements Serializable {
     private int maxPageItems = 2;
     private int page = 1;
     private List<T> listResult = new ArrayList<>();
-    private int totalItems = 0;
+    private Integer totalItems = 0;
     private String tableId = "tableList";
     private Integer limit;
     private Integer totalPage;
     private Integer totalItem;
     private String searchValue;
+
+
 
     public Long getId() {
         return id;
@@ -92,11 +94,11 @@ public class AbstractDTO<T> implements Serializable {
         this.listResult = listResult;
     }
 
-    public int getTotalItems() {
+    public Integer getTotalItems() {
         return totalItems;
     }
 
-    public void setTotalItems(int totalItems) {
+    public void setTotalItems(Integer totalItems) {
         this.totalItems = totalItems;
     }
 

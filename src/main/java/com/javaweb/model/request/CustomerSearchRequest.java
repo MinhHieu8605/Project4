@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerSearchRequest extends AbstractDTO {
-    private String fullName;
+    private String name;
     private String email;
-    private String phone;
+    private String customerPhone;
     private Long staffId;
 }

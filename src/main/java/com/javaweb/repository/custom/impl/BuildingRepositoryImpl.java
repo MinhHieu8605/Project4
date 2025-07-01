@@ -2,8 +2,12 @@ package com.javaweb.repository.custom.impl;
 
 import com.javaweb.api.builder.BuildingSearchBuilder;
 import com.javaweb.entity.BuildingEntity;
+import com.javaweb.entity.CustomerEntity;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -89,25 +93,16 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
     }
 
     @Override
-    public int countTotalItem(BuildingSearchResponse buildingSearchResponse){
-        String sql = buildQueryFilter(buildingSearchResponse.getId());
-        Query query = entityManager.createNativeQuery(sql);
-        return query.getResultList().size();
-    }
-
-    private String buildQueryFilter(Long id){
-        String sql = "SELECT * FROM building b WHERE b.id = " + id;
-        return sql;
+    public int countTotalItems(){
+        StringBuilder sql = new StringBuilder("SELECT * FROM building");
+        Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+        List<BuildingEntity> list = query.getResultList();
+        return list.size();
     }
 
     @Override
     public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {             // thao tác với csdl
-        StringBuilder sql = new StringBuilder(
-                "select * from building b "
-//                "SELECT b.id, b.name, b.street, b.ward, b.district, " +
-//                        "b.numberofbasement, b.floorarea, b.rentprice, b.rentpricedescription, " +
-//                        "b.type, b.managername, b.managerphone, b.createdby, b.createddate," +
-//                        " b.modifiedby, b.modifieddate FROM building b "
+        StringBuilder sql = new StringBuilder("Select * from building b "
         );
 
         StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
@@ -115,11 +110,31 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
         joinTable(buildingSearchBuilder, sql);
         queryNormal(buildingSearchBuilder, where);
         querySpecial(buildingSearchBuilder, where);
-        where.append(" GROUP BY b.id;");           // tránh bị trùng lặp
+        where.append(" GROUP BY b.id");           // tránh bị trùng lặp
         sql.append(where);
 
         Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Page<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder, Pageable pageable) {             // thao tác với csdl
+        StringBuilder sql = new StringBuilder("Select * from building b "
+        );
+
+        StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
+
+        joinTable(buildingSearchBuilder, sql);
+        queryNormal(buildingSearchBuilder, where);
+        querySpecial(buildingSearchBuilder, where);
+        where.append(" GROUP BY b.id");           // tránh bị trùng lặp
+        sql.append(where);
+
+        Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+        List<BuildingEntity> result = query.setFirstResult((int)pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        return new PageImpl<>(result, pageable, countTotalItems());
     }
 
 }

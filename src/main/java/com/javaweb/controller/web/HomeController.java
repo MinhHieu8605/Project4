@@ -1,14 +1,14 @@
 package com.javaweb.controller.web;
 
+import com.javaweb.model.dto.BuildingDTO;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.utils.DistrictCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +45,9 @@ public class HomeController {
     }
 
     @GetMapping(value="/lien-he")
-    public ModelAndView contact(){
+    public ModelAndView contact(@ModelAttribute CustomerDTO customerDTO, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/web/contact");
+        mav.addObject("modelContact", customerDTO);
         return mav;
     }
 

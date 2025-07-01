@@ -73,11 +73,11 @@
                                                 <div class="col-xs-12" style="margin-bottom: 10px; margin-top: 10px">
                                                     <div class="col-xs-4">
                                                         <label for="" class="name">Tên khách hàng</label>
-                                                        <form:input class="form-control" path="fullName" placeholder="Nhập tên khách hàng"></form:input>
+                                                        <form:input class="form-control" path="name" placeholder="Nhập tên khách hàng"></form:input>
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <label for="" class="name">Số điện thoại di dộng</label>
-                                                        <form:input class="form-control" path="phone" placeholder="Nhập số điện thoại"></form:input>
+                                                        <form:input class="form-control" path="customerPhone" placeholder="Nhập số điện thoại"></form:input>
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <label for="" class="name">Email</label>
@@ -87,13 +87,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12" style="margin-bottom: 15px;">
-                                                    <div class="col-xs-2">
-                                                        <label for="" class="name">Nhân viên</label>
-                                                        <form:select class="form-control" path="staffId">
-                                                            <form:option value="">--Chọn nhân viên--</form:option>
-                                                            <form:options items="${listStaffs}"></form:options>
-                                                        </form:select>
-                                                    </div>
+                                                    <security:authorize access="hasRole('MANAGER')">
+                                                        <div class="col-xs-2">
+                                                            <label for="" class="name">Nhân viên</label>
+                                                            <form:select class="form-control" path="staffId">
+                                                                <form:option value="">--Chọn nhân viên--</form:option>
+                                                                <form:options items="${listStaffs}"></form:options>
+                                                            </form:select>
+                                                        </div>
+                                                    </security:authorize>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -110,21 +112,27 @@
                                 </div>
                             </div>
 
-                            <div class="pull-right">
-                                <button class="btn btn-info" title="Thêm khách hàng">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                        <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                                    </svg>
-                                </button>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <div class="pull-right">
+                                    <a href="/admin/customer-edit">
+                                        <button class="btn btn-info" title="Thêm khách hàng">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                                <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                            </svg>
+                                        </button>
+                                    </a>
 
-                                <button type="button" class="btn btn-danger" title="Xóa khách hàng">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-dash" viewBox="0 0 16 16">
-                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                        <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
-                                    </svg>
-                                </button>
-                            </div>
+                                    <button type="button" class="btn btn-danger" title="Xóa khách hàng"
+                                            id="btnDeleteCustomer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-person-fill-dash" viewBox="0 0 16 16">
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m0-7a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                            <path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </security:authorize>
                         </div>
                     </div>
                 </div>
@@ -132,99 +140,51 @@
                 <!-- bảng danh sách -->
                 <div class="row" style="margin-top: 50px">
                     <div class="col-xs-12">
-                        <table id="simple-table" class="table table-striped table-bordered table-hover" style="font-family: 'Times New Roman', Times, serif;">
-                            <thead>
-                            <tr>
-                                <th class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" class="ace">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </th>
-                                <th>Tên khách hàng</th>
-                                <th>Số điện thoại</th>
-                                <th>Email</th>
-                                <th>Nhu cầu</th>
-                                <th>Người thêm</th>
-                                <th>Ngày thêm</th>
-                                <th>Tình trạng</th>
-                            </tr>
-                            </thead>
+                        <display:table name="modelSearch.listResult" cellspacing="0" cellpadding="6"
+                                       requestURI="${customerListURL}" partialList="true" sort="external"
+                                       size="${modelSearch.totalItems}" defaultsort="2" defaultorder="ascending"
+                                       id="tableList" pagesize="${modelSearch.maxPageItems}"
+                                       export="false"
+                                       class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer">
+<%--                                       style="margin: 30em 0 1.5em;">--%>
+                                <display:column title="<fieldset class='form-group' style='justify-content:center'>
+                                                <input type='checkbox' id='checkAll' class='check-box-element'>
+                                                </fieldset>" class="center select-cell" headerClass="center select-cell">
+                                    <fieldset>
+                                        <input type="checkbox" name="checkList" value="${tableList.id}"
+                                               id="checkbox_${tableList.id}" class="check-box-element"/>
+                                    </fieldset>
+                                </display:column>
+                            <display:column headerClass="text-left" property="name" title="Tên khách hàng"/>
+                            <display:column headerClass="text-left" property="customerPhone" title="Số điện thoại"/>
+                            <display:column headerClass="text-left" property="email" title="Email"/>
+                            <display:column headerClass="text-left" property="demand" title="Nhu cầu"/>
+                            <display:column headerClass="text-left" property="createdBy" title="Người thêm"/>
+                            <display:column headerClass="text-left" property="createdDate" title="Ngày thêm"/>
+                            <display:column headerClass="text-left" property="status" title="Tình trạng"/>
 
-                            <tbody>
-                            <c:forEach var="item" items="${customerList}">
-                                <tr>
-                                    <td class="center">
-                                        <label class="pos-rel">
-                                            <input type="checkbox" class="ace" value="${item.id}">
-                                            <span class="lbl"></span>
-                                        </label>
-                                    </td>
+                            <display:column headerClass="col-actions" title="Thao tác">
+                                <security:authorize access="hasRole('MANAGER')">
+                                    <a class="btn btn-xs btn-success" title="Giao khách hàng cho nhân viên" onclick="assignmentCustomer(${tableList.id})">
+                                      <i class="ace-icon glyphicon glyphicon-list"></i>
+                                    </a>
+                                </security:authorize>
 
-                                    <td>${item.fullName}</td>
-                                    <td>${item.phone}</td>
-                                    <td>${item.email}</td>
-                                    <td>${item.demand}</td>
-                                    <td>${item.createdBy}</td>
-                                    <td>${item.createdDate}</td>
+                                <a class="btn btn-xs btn-info" title="Sửa thông tin" href="/admin/customer-edit-${tableList.id}">
+                                  <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                </a>
 
-                                    <td>
-                                        <div class="hidden-sm hidden-xs btn-group">
-                                            <button class="btn btn-xs btn-success" title="Giao khách hàng cho nhân viên" onclick="assignmentCustomer(${item.id})">
-                                                <i class="ace-icon glyphicon glyphicon-list"></i>
-                                            </button>
-
-                                            <button class="btn btn-xs btn-info" title="Sửa thông tin">
-                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                            </button>
-
-                                            <button class="btn btn-xs btn-danger" title="Xóa khách hàng">
-                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="hidden-md hidden-lg">
-                                            <div class="inline pos-rel">
-                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                                                </button>
-
-                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                    <li>
-                                                        <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
-                                                                            <span class="blue">
-                                                                                <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                            </span>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-                                                                            <span class="green">
-                                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                            </span>
-                                                        </a>
-                                                    </li>
-
-                                                    <li>
-                                                        <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
-                                                                            <span class="red">
-                                                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-                            </tbody>
-                        </table>
+                                <security:authorize access="hasRole('MANAGER')">
+                                    <a class="btn btn-xs btn-danger" title="Xóa khách hàng" onclick="deleteCustomer(${tableList.id})">
+                                      <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                    </a>
+                                </security:authorize>
+                            </display:column>
+                        </display:table>
                     </div><!-- /.span -->
                 </div>
                 <!-- End bảng danh sách -->
+
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
@@ -313,38 +273,62 @@
             });
         }
 
-        <%--$('#btnAssignmentCustomer').click(function (e){--%>
-        <%--  e.preventDefault();--%>
-        <%--  var data = {};--%>
-        <%--  data['buildingId'] = $('#buildingId').val();--%>
-        <%--  var staffs = ${'#staffList'}.find('tbody input[type = checkbox]:checked').map(function (){--%>
-        <%--      return $(this).val();--%>
-        <%--  }).get();--%>
-        <%--  data['staffs'] = staffs;--%>
-        <%--  if(data['staffs'] != ' '){--%>
-        <%--      assignmentOfCustomer(data);--%>
-        <%--  }--%>
+        $('#btnDeleteCustomer').click(function (e){
+            e.preventDefault();
+            var customerIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function (){
+                return $(this).val();
+            }).get();
+            deleteCustomer(customerIds);
+        });
 
-        <%--});--%>
+        function deleteCustomer(id){
+            var customerId = [id];
+            deleteCustomers(customerId);
+        }
 
-        <%--function assignmentOfCustomer(data){--%>
-        <%--    $.ajax({--%>
-        <%--      type: "POST",--%>
-        <%--      // url: "http://localhost:8081/admin/building",--%>
-        <%--      url: "${customerAPI}/" + "assignment",--%>
-        <%--      data: JSON.stringify(data),       // chuyển data về dạng json--%>
-        <%--      contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON--%>
-        <%--      dataType: "JSON",     // định dạng dữ liệu từ server gửi lên--%>
-        <%--      success: function(response){--%>
-        <%--          alert("Giao khách hàng thành công");--%>
-        <%--          window.location.href = "<c:url value="/admin/customer-list"></c:url>"--%>
-        <%--      },--%>
-        <%--      error: function(response){--%>
-        <%--          window.location.href = "<c:url value="/admin/customer-list?message=error"></c:url>"--%>
-        <%--          console.log(response);--%>
-        <%--      }--%>
-        <%--  });--%>
-        <%--}--%>
+        function deleteCustomers(id){
+            $.ajax({
+              type: "DELETE",
+              url: "${customerAPI}" + id,
+              data: JSON.stringify(id),       // chuyển data về dạng json
+              contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
+              success: function(){
+                  window.location.href = "<c:url value="/admin/customer-list?message=success"></c:url>"
+              },
+              error: function(){
+                  console.log("failed");
+              }
+          });
+        }
+        $('#btnAssignmentCustomer').click(function (e){
+            e.preventDefault();
+            var data = {}
+            data['customerId'] = $('#customerId').val();
+            var staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function (){
+                return $(this).val();
+            }).get();
+            data['staffs'] = staffs;
+            if(data['staffs'] != ' '){
+                assignmentOfCustomer(data);
+            }
+        })
+
+        function assignmentOfCustomer(data){
+            $.ajax({
+              type: "POST",
+              url: "${customerAPI}" + "assignment",
+              data: JSON.stringify(data),       // chuyển data về dạng json
+              contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
+              success: function(){
+                  alert("Giao tòa nhà thành công");
+                  window.location.href = "<c:url value="/admin/customer-list"></c:url>"
+              },
+              error: function(){
+                  window.location.href = "<c:url value="/admin/customer-list?message=error"></c:url>"
+              }
+          });
+        }
+
     </script>
 </body>
 </html>

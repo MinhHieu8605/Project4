@@ -177,11 +177,13 @@
 <%--                            <form:input class="form-control" path="managerPhone"></form:input>--%>
                           </div>
                           <div class="col-xs-2">
-                            <label for="" class="name">Nhân viên</label>
-                            <form:select class="form-control" path="staffId">
-                              <form:option value="">--Chọn nhân viên--</form:option>
-                              <form:options items="${listStaffs}"></form:options>
-                            </form:select>
+                            <security:authorize access="hasRole('MANAGER')">
+                              <label for="" class="name">Nhân viên</label>
+                              <form:select class="form-control" path="staffId">
+                                <form:option value="">--Chọn nhân viên--</form:option>
+                                <form:options items="${listStaffs}"></form:options>
+                              </form:select>
+                            </security:authorize>
                           </div>
                         </div>
                       </div>
@@ -212,23 +214,25 @@
               </div>
 
               <div class="pull-right">
-                <a href="/admin/building-edit">
-                  <button class="btn btn-info" title="Thêm tòa nhà">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
-                      <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"></path>
+                <security:authorize access="hasRole('MANAGER')">
+                  <a href="/admin/building-edit">
+                    <button class="btn btn-info" title="Thêm tòa nhà">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-building-add" viewBox="0 0 16 16">
+                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"></path>
+                        <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"></path>
+                        <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
+                      </svg>
+                    </button>
+                  </a>
+
+                  <button type="button" class="btn btn-danger" title="Xóa tòa nhà" id="btnDeleteBuilding">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
+                      <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"></path>
                       <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"></path>
                       <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
                     </svg>
                   </button>
-                </a>
-
-                <button type="button" class="btn btn-danger" title="Xóa tòa nhà" id="btnDeleteBuilding">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
-                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"></path>
-                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"></path>
-                    <path d="M4.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-6 3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm3 0a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"></path>
-                  </svg>
-                </button>
+                </security:authorize>
               </div>
             </div>
           </div>
@@ -237,149 +241,47 @@
         <!-- bảng danh sách -->
         <div class="row" style="margin-top: 50px">
           <div class="col-xs-12">
-            <table id="tableList" class="table table-striped table-bordered table-hover" style="font-family: 'Times New Roman', Times, serif;">
-              <thead>
-                <tr>
-                  <th class="center">
-                    <label class="pos-rel">
-                      <input type="checkbox" class="ace" name="checkList" value="">
-                      <span class="lbl"></span>
-                    </label>
-                  </th>
-                  <th>Tên tòa nhà</th>
-                  <th>Địa chỉ</th>
-                  <th>Số tầng hầm</th>
-                  <th>Tên quản lí</th>
-                  <th>Số điện thoại</th>
-                  <th>DT sàn</th>
-                  <th>DT trống</th>
-                  <th>DT thuê</th>
-                  <th>Giá thuê</th>
-                  <th>Phí dịch vụ</th>
-                  <th>Phí môi giới</th>
-                  <th>Thao tác</th>
-                </tr>
-              </thead>
+            <display:table name="modelSearch.listResult" cellspacing="0" cellpadding="6"
+                               requestURI="${buildingListURL}" partialList="true" sort="external"
+                               size="${modelSearch.totalItems}" defaultsort="2" defaultorder="ascending"
+                               id="tableList" pagesize="${modelSearch.maxPageItems}"
+                               export="false"
+                               class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer">
+                  <display:column title="<fieldset class='form-group'>
+                                 <input type='checkbox' id='checkAll' class='check-box-element' style='justify-content:center'>
+                                 </fieldset>" class="center select-cell"
+                                 headerClass="center select-cell">
 
-              <tbody>
-              <c:forEach var="item" items="${buildingList}">
-<%--              duyệt vòng lặp lấy dữ liệu đổ lên client--%>
-                <tr>
-                  <td class="center">
-                    <label class="pos-rel">
-                      <input type="checkbox" class="ace" name="checkList" value="${item.id}">
-<%--                  item này như là buildingSearchRespone--%>
-                      <span class="lbl"></span>
-                    </label>
-                  </td>
+                      <fieldset>
+                          <input type="checkbox" name="checkList" value="${tableList.id}"
+                          id="checkbox_${tableList.id}" class="check-box-element"/>
+                      </fieldset>
+                  </display:column>
+                  <display:column headerClass="text-left" property="name" title="Tên tòa nhà"/>
+                  <display:column headerClass="text-left" property="address" title="Địa chỉ"/>
+                  <display:column headerClass="text-left" property="numberOfBasement" title="Số tầng hầm"/>
+                  <display:column headerClass="text-left" property="managerName" title="Tên quản li"/>
+                  <display:column headerClass="text-left" property="managerPhone" title="SĐT quản lí"/>
+                  <display:column headerClass="text-left" property="floorArea" title="D.tích sàn"/>
+                  <display:column headerClass="text-left" property="emptyArea" title="D.tích trống"/>
+                  <display:column headerClass="text-left" property="rentPrice" title="D.tích thuê"/>
+                  <display:column headerClass="text-left" property="serviceFee" title="Phí dịch vụ"/>
+                  <display:column headerClass="text-left" property="brokerageFee" title="Phí môi giới"/>
 
-                  <td>${item.name}</td>
-                  <td>${item.address}</td>
-                  <td>${item.numberOfBasement}</td>
-                  <td>${item.managerName}</td>
-                  <td>${item.managerPhone}</td>
-                  <td>${item.floorArea}</td>
-                  <td></td>
-                  <td>${item.rentArea}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-
-                  <td>
-                    <div class="hidden-sm hidden-xs btn-group">
-                      <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
+                  <display:column headerClass="col-actions" title="Thao tác">
+                      <a class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${tableList.id})">
                         <i class="ace-icon glyphicon glyphicon-list"></i>
-                      </button>
+                      </a>
 
-                      <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">
+                      <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${tableList.id}">
                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                       </a>
 
-                      <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">
+                      <a class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${tableList.id})">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                      </button>
-                    </div>
-
-                    <div class="hidden-md hidden-lg">
-                      <div class="inline pos-rel">
-                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                          <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                          <li>
-                            <a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
-                                                                      <span class="blue">
-                                                                          <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                      </span>
-                            </a>
-                          </li>
-
-                          <li>
-                            <a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-                                                                      <span class="green">
-                                                                          <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                      </span>
-                            </a>
-                          </li>
-
-                          <li>
-                            <a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
-                                                                      <span class="red">
-                                                                          <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                      </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </c:forEach>
-<%--              <form:form modelAttribute="buildingList">--%>
-<%--                <display:table name="buildingList.listResult" cellspacing="0" cellpadding="6"--%>
-<%--                               requestURI="${buildingListURL}" partialList="true" sort="external"--%>
-<%--                               size="${buildingList.totalItems}" defaultsort="2" defaultorder="ascending"--%>
-<%--                               id="tableList" pagesize="${buildingList.maxPageItems}"--%>
-<%--                               export="false"--%>
-<%--                               class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"--%>
-<%--                               style="margin: 30m 0 1.5em;">--%>
-<%--                  <display:column title="<fieldset class='form-group'>--%>
-<%--                                 <input type='checkbox' id='checkAll' class='check-box-element'>--%>
-<%--                                 </fieldset>" class="center select-cell"--%>
-<%--                                 headerClass="center select-cell">--%>
-
-<%--                      <fieldset>--%>
-<%--                        <input type="checkbox" name="checkList" value="${tableList.id}"--%>
-<%--                        id="checkbox_${tableList.id}" class="check-box-element"/>--%>
-<%--                      </fieldset>--%>
-<%--                  </display:column>--%>
-<%--                  <display:column headerClass="text-left" property="name" title="Tên tòa nhà"/>--%>
-<%--                  <display:column headerClass="text-left" property="address" title="Địa chỉ"/>--%>
-<%--                  <display:column headerClass="text-left" property="numberOfBasement" title="Số tầng hầm"/>--%>
-<%--                  <display:column headerClass="text-left" property="managerName" title="Tên quản li"/>--%>
-<%--                  <display:column headerClass="text-left" property="managerPhone" title="SĐT quản lí"/>--%>
-<%--                  <display:column headerClass="text-left" property="floorArea" title="D.tích sàn"/>--%>
-<%--                  <display:column headerClass="text-left" property="floorArea" title="D.tích trống"/>--%>
-<%--                  <display:column headerClass="text-left" property="floorArea" title="Phí môi giới"/>--%>
-
-<%--                  <display:column headerClass="col-actions" title="Thao tác">--%>
-<%--                    <a class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">&ndash;%&gt;--%>
-<%--                      <i class="ace-icon glyphicon glyphicon-list"></i>--%>
-<%--                    </a>--%>
-
-<%--                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">--%>
-<%--                      <i class="ace-icon fa fa-pencil bigger-120"></i>--%>
-<%--                    </a>--%>
-
-<%--                    <a class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">--%>
-<%--                      <i class="ace-icon fa fa-trash-o bigger-120"></i>--%>
-<%--                    </a>--%>
-<%--                  </display:column>--%>
-<%--                </display:table>--%>
-<%--              </form:form>--%>
-              </tbody>
-            </table>
+                      </a>
+                  </display:column>
+                </display:table>
           </div><!-- /.span -->
         </div>
         <!-- End bảng danh sách -->
@@ -459,10 +361,8 @@
               // contentType: "application/json",   //Khai báo kiểu dữ liệu bạn gửi lên server là JSON
               dataType: "JSON",     // định dạng dữ liệu từ server gửi lên
               success: function(response){
-                  console.log(response);
                   var row = '';
                   $.each(response.data, function (i, item){
-                    console.log(item);
                     row += '<tr>';
                     row += '<td class="text-center"><input type="checkbox" value="' + item.staffId + '" id="checkbox_' + item.staffId + '"' + item.checked + '></td>';
                     row += '<td class="text-center">' + item.fullName + '</td>';

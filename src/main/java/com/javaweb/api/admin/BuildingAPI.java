@@ -5,10 +5,11 @@ import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
-import com.javaweb.service.AssignmentBuildingService;
 import com.javaweb.service.BuildingService;
 import com.javaweb.service.impl.BuildingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +21,13 @@ public class BuildingAPI {
 
     @Autowired
     private BuildingService buildingService;
-//    @Autowired
-//    private AssignmentBuildingService assignmentBuildingService;
     @Autowired
     private BuildingServiceImpl buildingServiceImpl;
 
     @GetMapping
-    public List<BuildingSearchResponse> getBuildings(@ModelAttribute BuildingSearchRequest buildingSearchRequest) {
-        List<BuildingSearchResponse> res = buildingService.findAll(buildingSearchRequest);
-        return res;
+    public List<BuildingSearchResponse> getBuildings(@ModelAttribute BuildingSearchRequest buildingSearchRequest, Pageable pageable) {
+        Page<BuildingSearchResponse> res = buildingService.findAll(buildingSearchRequest, pageable);
+        return res.getContent();
     }
 
     @PostMapping
@@ -50,9 +49,10 @@ public class BuildingAPI {
 
     @PostMapping("/assignment")
     public ResponseEntity<ResponseDTO> updateAsssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO) {
-        buildingServiceImpl.addAssignmentBuildingEntity(assignmentBuildingDTO);
+        buildingService.addAssignmentBuildingEntity(assignmentBuildingDTO);
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Successfully added assignment building");
         return ResponseEntity.ok(responseDTO);
     }
+
 }

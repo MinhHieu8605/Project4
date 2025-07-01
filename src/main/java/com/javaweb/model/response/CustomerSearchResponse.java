@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 public class CustomerSearchResponse extends AbstractDTO {
     private Long id;
-    private String fullName;
-    private String phone;
+    private String name;
+    private String customerPhone;
     private String email;
     private String demand;
-
+    private String status;
 }

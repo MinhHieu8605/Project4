@@ -2,7 +2,12 @@ package com.javaweb.repository.custom.impl;
 
 import com.javaweb.api.builder.CustomerSearchBuilder;
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.model.request.CustomerSearchRequest;
+import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.repository.custom.CustomerRepositoryCustom;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,8 +26,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         if(staffId != null ){
             sql.append(" INNER JOIN assignmentcustomer ON assignmentcustomer.customerid = customer.id ");
         }
-        sql.append(" LEFT JOIN transaction ON transaction.customerid = customer.id ");
-
+//        sql.append(" LEFT JOIN transaction ON transaction.customerid = customer.id ");
     }
 
     public static void queryNormal(CustomerSearchBuilder customerSearchBuilder, StringBuilder where){
@@ -56,6 +60,21 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
 //        where.append(" AND EXISTS (SELECT * FROM transaction WHERE customer.id = transaction.customerid)");
     }
+    private String existCustomer(){
+        StringBuilder sql = new StringBuilder(" AND customer.is_active = 1 ");
+        return sql.toString();
+    }
+
+    @Override
+    public int countTotalItems(){
+        StringBuilder sql = new StringBuilder("SELECT * FROM customer");
+        Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);
+        List<CustomerEntity> list = query.getResultList();
+        return list.size();
+//        String sql = customerQueryFilter(customerSearchRequest.getId());
+//        Query query = entityManager.createNativeQuery(sql);
+//        return query.getResultList().size();
+    }
 
     @Override
     public List<CustomerEntity> findAll(CustomerSearchBuilder customerSearchBuilder) {
@@ -63,6 +82,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
         StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
         joinTable(customerSearchBuilder, sql);
+        where.append(existCustomer());
         queryNormal(customerSearchBuilder, where);
         querySpecial(customerSearchBuilder, where);
         where.append(" GROUP BY customer.id");
@@ -70,6 +90,26 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
         Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Page<CustomerEntity> findAll(CustomerSearchBuilder customerSearchBuilder, Pageable pageable) {
+        StringBuilder sql = new StringBuilder("SELECT customer.* FROM customer");
+
+        StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
+        joinTable(customerSearchBuilder, sql);
+        where.append(existCustomer());
+        queryNormal(customerSearchBuilder, where);
+        querySpecial(customerSearchBuilder, where);
+        where.append(" GROUP BY customer.id");
+        sql.append(where);
+
+        Query query = entityManager.createNativeQuery(sql.toString(), CustomerEntity.class);
+        List<CustomerEntity> result = query.setFirstResult((int)pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
+        return new PageImpl<>(result, pageable, countTotalItems());
+//        return query.getResultList();
     }
 
 }

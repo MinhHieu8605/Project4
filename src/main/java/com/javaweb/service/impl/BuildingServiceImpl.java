@@ -21,6 +21,9 @@ import com.javaweb.service.RentAreaService;
 import com.javaweb.utils.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,7 +74,6 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public List<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest) {
-//        List<String> typeCode = buildingSearchRequest.getTypeCode();
         BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.toBuildingSearchBuilder(buildingSearchRequest);
         List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
         List<BuildingSearchResponse> res = new ArrayList<>();
@@ -80,6 +82,18 @@ public class BuildingServiceImpl implements BuildingService {
             res.add(building);
         }
         return res;
+    }
+
+    @Override
+    public Page<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest, Pageable pageable) {
+        BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.toBuildingSearchBuilder(buildingSearchRequest);
+        Page<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder, pageable);
+        List<BuildingSearchResponse> res = new ArrayList<>();
+        for(BuildingEntity item : buildingEntities){
+            BuildingSearchResponse building = buildingDTOConverter.toBuildingSearchResponse(item);
+            res.add(building);
+        }
+        return new PageImpl<>(res, pageable, buildingEntities.getTotalElements());
     }
 
     @Override
