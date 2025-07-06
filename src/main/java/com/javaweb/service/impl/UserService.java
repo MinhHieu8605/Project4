@@ -44,6 +44,10 @@ public class UserService implements IUserService {
 
     @Override
     public UserDTO findOneByUserNameAndStatus(String name, int status) {
+        UserEntity entity = userRepository.findOneByUserNameAndStatus(name, 1);
+        if (entity == null) {
+            return null; // phải kiểm tra null
+        }
         return userConverter.convertToDto(userRepository.findOneByUserNameAndStatus(name, status));
     }
 

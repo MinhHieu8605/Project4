@@ -12,9 +12,15 @@ public class UserConverter {
     @Autowired
     private ModelMapper modelMapper;
 
-    public UserDTO convertToDto (UserEntity entity){
-        UserDTO result = modelMapper.map(entity, UserDTO.class);
-        return result;
+//    public UserDTO convertToDto (UserEntity entity){
+//        UserDTO result = modelMapper.map(entity, UserDTO.class);
+//        return result;
+//    }
+    public UserDTO convertToDto(UserEntity userEntity) {
+        if (userEntity == null) {
+            return null;
+        }
+        return modelMapper.map(userEntity, UserDTO.class);
     }
 
     public UserEntity convertToEntity (UserDTO dto){
