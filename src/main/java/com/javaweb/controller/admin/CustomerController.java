@@ -34,7 +34,6 @@ public class CustomerController {
     @RequestMapping(value="/admin/customer-list", method = RequestMethod.GET)
     public ModelAndView customerList(@ModelAttribute CustomerSearchRequest customerSearchRequest, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/list");
-//        List<CustomerSearchResponse> res = customerService.findAll(customerSearchRequest);
         mav.addObject("modelSearch",customerSearchRequest);
         mav.addObject("listStaffs", userService.getStaffs());
 

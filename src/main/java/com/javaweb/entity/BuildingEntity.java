@@ -1,11 +1,16 @@
 package com.javaweb.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "building")
+@Setter
+@Getter
 public class BuildingEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,17 +59,6 @@ public class BuildingEntity extends BaseEntity {
     public void setRentArea(List<RentAreaEntity> rentArea) {
         this.rentArea = rentArea;
     }
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "buildingEntity")
-//    List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
-//
-//    public List<AssignBuildingEntity> getAssignBuildingEntities() {
-//        return assignBuildingEntities;
-//    }
-//
-//    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
-//        this.assignBuildingEntities = assignBuildingEntities;
-//    }
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="assignmentbuilding",
             joinColumns = @JoinColumn(name="buildingid", nullable = false),
@@ -79,100 +73,4 @@ public class BuildingEntity extends BaseEntity {
         this.userEntities = userEntities;
     }
 
-    public String getManagerphone() {
-        return managerphone;
-    }
-
-    public void setManagerphone(String managerphone) {
-        this.managerphone = managerphone;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getWard() {
-        return ward;
-    }
-
-    public void setWard(String ward) {
-        this.ward = ward;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getNumberOfBasement() {
-        return numberOfBasement;
-    }
-
-    public void setNumberOfBasement(String numberOfBasement) {
-        this.numberOfBasement = numberOfBasement;
-    }
-
-    public Long getFloorArea() {
-        return floorArea;
-    }
-
-    public void setFloorArea(Long floorArea) {
-        this.floorArea = floorArea;
-    }
-
-    public Long getRentPrice() {
-        return rentPrice;
-    }
-
-    public void setRentPrice(Long rentPrice) {
-        this.rentPrice = rentPrice;
-    }
-
-    public String getRentPriceDescription() {
-        return rentPriceDescription;
-    }
-
-    public void setRentPriceDescription(String rentPriceDescription) {
-        this.rentPriceDescription = rentPriceDescription;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getManagername() {
-        return managername;
-    }
-
-    public void setManagername(String managername) {
-        this.managername = managername;
-    }
 }

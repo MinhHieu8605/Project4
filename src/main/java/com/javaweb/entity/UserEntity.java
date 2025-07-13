@@ -38,23 +38,6 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(mappedBy = "userEntities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<BuildingEntity> buildingEntities = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<AssignBuildingEntity> assignBuildingEntities = new ArrayList<>();
-//
-//    public List<AssignBuildingEntity> getAssignBuildingEntities() {
-//        return assignBuildingEntities;
-//    }
-//
-//    public void setAssignBuildingEntities(List<AssignBuildingEntity> assignBuildingEntities) {
-//        this.assignBuildingEntities = assignBuildingEntities;
-//    }
-
-    //    @OneToMany(mappedBy="staffs", fetch = FetchType.LAZY)
-//    private List<AssignmentBuildingEntity> assignmentBuildingEntities = new ArrayList<>();
-//
-//    @OneToMany(mappedBy="users", fetch = FetchType.LAZY)
-//    private List<UserRoleEntity> userRoleEntities = new ArrayList<>();
-
 
     public List<BuildingEntity> getBuildingEntities() {
         return buildingEntities;

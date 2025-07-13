@@ -5,6 +5,7 @@ import com.javaweb.converter.CustomerConverter;
 import com.javaweb.converter.CustomerSearchBuilderConverter;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
@@ -67,7 +68,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ResponseDTO listStaffsOfCustomer(Long customerId) {
-        CustomerEntity customer = customerRepository.findById(customerId).get();
+        CustomerEntity customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + customerId));
         List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");  //Roles_Code: trong danh sách roles, tìm những người dùng có ít nhất một vai trò (role) có code bằng với giá trị truyền vào.
         List<UserEntity> staffAssignment = customer.getUserEntities();      // danh sách nhân viên đã được giao
         List<StaffResponseDTO> staffResponseDTOS = new ArrayList<>();
@@ -88,9 +90,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO findById(Long customerId) {
-        CustomerEntity customerEntity = customerRepository.findById(customerId).get();
-        CustomerDTO res = modelMapper.map(customerEntity, CustomerDTO.class);
-        return res;
+        CustomerEntity customerEntity = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + customerId));
+        CustomerDTO result = modelMapper.map(customerEntity, CustomerDTO.class);
+        return result;
     }
 
     @Override
@@ -105,7 +108,8 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomers(List<Long> ids) {          // xóa mềm
 //        customerRepository.deleteByIdIn(ids);
         for(Long id : ids){
-            CustomerEntity customerEntity = customerRepository.findById(id).get();
+            CustomerEntity customerEntity = customerRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
             customerEntity.setActive(0L);
             customerRepository.save(customerEntity);
         }
@@ -113,7 +117,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public AssignmentCustomerDTO addAssignmentCustomer(AssignmentCustomerDTO assignmentCustomerDTO) {
-        CustomerEntity customerEntity = customerRepository.findById(assignmentCustomerDTO.getCustomerId()).get();
+        CustomerEntity customerEntity = customerRepository.findById(assignmentCustomerDTO.getCustomerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + assignmentCustomerDTO.getCustomerId()));
         List<UserEntity> userEntities = userRepository.findByIdIn(assignmentCustomerDTO.getStaffs());
         customerEntity.setUserEntities(userEntities);
         customerRepository.save(customerEntity);

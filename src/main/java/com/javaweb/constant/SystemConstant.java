@@ -19,4 +19,8 @@ public class SystemConstant {
     public static final String PASSWORD_DEFAULT = "123456";
     public static final String CHANGE_PASSWORD_FAIL = "change_password_fail";
     public static final String BUILDING_NOT_FOUND = "BUILDING_NOT_FOUND";
+
+    public static final int ACTIVE = 1;
+    public static final int STATUS = 1;
+    public static final String STAFF = "staff";
 }

@@ -4,6 +4,7 @@ import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
+import com.javaweb.model.response.ApiResponse;
 import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.CustomerService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController(value = "CustomerAPIOfAdmin")
@@ -24,12 +26,6 @@ public class CustomerAPI {
     @Autowired
     private TransactionService transactionService;
 
-//    @GetMapping
-//    public List<CustomerSearchResponse> getAllCustomers(@ModelAttribute CustomerSearchRequest customerSearchRequest) {
-//        List<CustomerSearchResponse> res = customerService.findAll(customerSearchRequest);
-//        return res;
-//    }
-
     @GetMapping
     public List<CustomerSearchResponse> getAllCustomers(@ModelAttribute CustomerSearchRequest customerSearchRequest, Pageable pageable) {
         Page<CustomerSearchResponse> res = customerService.findAll(customerSearchRequest, pageable);
@@ -37,7 +33,7 @@ public class CustomerAPI {
     }
 
     @PostMapping
-    public ResponseEntity addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerDTO> addOrUpdateCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         return ResponseEntity.ok(customerService.addOrUpdateCustomer(customerDTO));
     }
 
@@ -53,12 +49,12 @@ public class CustomerAPI {
     }
 
     @PostMapping("/assignment")
-    public void updateAssignmentCustomer(@RequestBody AssignmentCustomerDTO assignmentCustomerDTO){
+    public void updateAssignmentCustomer(@Valid @RequestBody AssignmentCustomerDTO assignmentCustomerDTO){
         customerService.addAssignmentCustomer(assignmentCustomerDTO);
     }
 
     @PostMapping("/transaction")
-    public ResponseEntity<TransactionDTO> addOrUpdateTransaction(@RequestBody TransactionDTO transactionDTO) {
+    public ResponseEntity<TransactionDTO> addOrUpdateTransaction(@Valid @RequestBody TransactionDTO transactionDTO) {
         return ResponseEntity.ok(transactionService.addOrUpdateTransaction(transactionDTO));
     }
 

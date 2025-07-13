@@ -1,8 +1,10 @@
 package com.javaweb.model.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class AssignmentBuildingDTO {
+    @NotBlank(message = "buildingId not mandatory")
     private Long buildingId;
     private List<Long> staffs;
 

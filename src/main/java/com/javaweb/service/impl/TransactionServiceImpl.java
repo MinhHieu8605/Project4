@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import com.javaweb.converter.TransactionConverter;
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.entity.TransactionEntity;
+import com.javaweb.exception.ResourceNotFoundException;
 import com.javaweb.model.dto.ResponseDetailDTO;
 import com.javaweb.model.dto.TransactionDTO;
 import com.javaweb.model.response.ResponseDTO;
@@ -30,10 +31,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionDTO addOrUpdateTransaction(TransactionDTO transactionDTO) {
         TransactionEntity transactionEntity = transactionConverter.toTransactionEntity(transactionDTO);
-        CustomerEntity customerEntity = customerRepository.findById(transactionDTO.getCustomerId()).get();
+        CustomerEntity customerEntity = customerRepository.findById(transactionDTO.getCustomerId())
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with id " + transactionDTO.getCustomerId()));
         transactionEntity.setCustomerEntity(customerEntity);
         if(transactionDTO.getId() != null) {
-            TransactionEntity olTransaction = transactionRepository.findById(transactionDTO.getId()).get();
+            TransactionEntity olTransaction = transactionRepository.findById(transactionDTO.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with id " + transactionDTO.getCustomerId()));
             transactionEntity.setCreatedDate(olTransaction.getCreatedDate());
             transactionEntity.setCreatedBy(olTransaction.getCreatedBy());
         }
@@ -43,7 +46,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public ResponseDTO loadTransactionDetails(Long id){
-        TransactionEntity transactionEntity = transactionRepository.findById(id).get();
+        TransactionEntity transactionEntity = transactionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found with id " + id));
         ResponseDetailDTO responseDetailDTO = new ResponseDetailDTO();
         responseDetailDTO.setNote(transactionEntity.getNote());
         ResponseDTO responseDTO = new ResponseDTO();

@@ -1,8 +1,16 @@
 package com.javaweb.model.response;
 
 
+import com.javaweb.enums.buildingType;
 import com.javaweb.model.dto.AbstractDTO;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Getter
+@Setter
 public class BuildingSearchResponse extends AbstractDTO {                    // trả dữ liệu ra cho client
 	private Long id;
 	private String name;
@@ -16,89 +24,13 @@ public class BuildingSearchResponse extends AbstractDTO {                    // 
     private Long rentPrice;
     private String serviceFee;
     private Double brokerageFee;
+	private List<buildingType> typeCode;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public List<buildingType> getTypeCode() {
+		return typeCode;
 	}
 
-	public String getManagerName() {
-		return managerName;
-	}
-	public String getRentArea() {
-		return rentArea;
-	}
-	public void setRentArea(String rentArea) {
-		this.rentArea = rentArea;
-	}
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
-	}
-	public String getManagerPhoneNumber() {
-		return managerPhone;
-	}
-	public void setManagerPhoneNumber(String managerPhoneNumber) {
-		this.managerPhone = managerPhoneNumber;
-	}
-	public Long getFloorArea() {
-		return floorArea;
-	}
-	public void setFloorArea(Long floorArea) {
-		this.floorArea = floorArea;
-	}
-	public String getEmptyArea() {
-		return emptyArea;
-	}
-	public void setEmptyArea(String emptyArea) {
-		this.emptyArea = emptyArea;
-	}
-	public Long getRentPrice() {
-		return rentPrice;
-	}
-	public void setRentPrice(Long rentPrice) {
-		this.rentPrice = rentPrice;
-	}
-	public String getServiceFee() {
-		return serviceFee;
-	}
-	public void setServiceFee(String serviceFee) {
-		this.serviceFee = serviceFee;
-	}
-	public Double getBrokerageFee() {
-		return brokerageFee;
-	}
-	public void setBrokerageFee(Double brokerageFee) {
-		this.brokerageFee = brokerageFee;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Long getNumberOfBasement() {
-		return numberOfBasement;
-	}
-
-	public void setNumberOfBasement(Long numberOfBasement) {
-		this.numberOfBasement = numberOfBasement;
-	}
-
-	public String getManagerPhone() {
-		return managerPhone;
-	}
-
-	public void setManagerPhone(String managerPhone) {
-		this.managerPhone = managerPhone;
+	public void setTypeCode(List<buildingType> typeCode) {
+		this.typeCode = typeCode;
 	}
 }

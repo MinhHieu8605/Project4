@@ -41,6 +41,15 @@ CREATE TABLE `building` (
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
+CREATE INDEX idx_building_rentprice ON building(rentprice);
+CREATE INDEX idx_building_floorarea ON building(floorarea);
+CREATE INDEX idx_building_numberofbasement ON building(numberofbasement);
+CREATE INDEX idx_building_district_ward ON building(district, ward);
+CREATE INDEX idx_building_managername ON building(managername);
+CREATE INDEX idx_building_managerphone ON building(managerphone);
+CREATE INDEX idx_building_name ON building(name);
+CREATE INDEX idx_building_street ON building(street);
+
 LOCK TABLES `building` WRITE;
 INSERT INTO `building` VALUES
                            (1,'Nam Giao Building Tower','59 phan xích long','Phường 2','QUAN_1',NULL,2,500,NULL,NULL,15,'15 triệu/m2',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'TANG_TRET,NGUYEN_CAN',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Anh Nam-Chị Linh','0915354727'),
@@ -51,7 +60,6 @@ INSERT INTO `building` VALUES
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `customer` (
                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -68,14 +76,18 @@ CREATE TABLE `customer` (
                             `modifiedby` varchar(255) DEFAULT NULL,
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE UNIQUE INDEX idx_customer_phone ON customer(phone);
+CREATE UNIQUE INDEX idx_customer_email ON customer(email);
+CREATE INDEX idx_customer_fullname ON customer(fullname);
+CREATE INDEX idx_customer_isActive ON customer(is_active);
+
 INSERT INTO customer(fullname,phone,email,companyname,demand)
 VALUES('Luc Van Hai','0905671231','hailv@gmail.com',null,null),
       ('Nguyen Xuan Hong','0205671231','hongxuanng@gmail.com',null,null),
       ('Ta Thi Cuc','0912121231','cucthita1@gmail.com',null,null);
 
 LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
@@ -95,6 +107,11 @@ CREATE TABLE `user` (
                         PRIMARY KEY (`id`),
                         UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+CREATE INDEX idx_user_fullName ON user(fullname);
+CREATE INDEX idx_user_status ON user(status);
+CREATE INDEX idx_user_email ON user(email);
+CREATE INDEX idx_user_phone ON user(phone);
 
 LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'nguyenvana','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG','nguyen van a',NULL,NULL,1,NULL,NULL,NULL,NULL),
@@ -122,11 +139,13 @@ CREATE TABLE `assignmentbuilding` (
                                       CONSTRAINT `fk_user_building` FOREIGN KEY (`staffid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 LOCK TABLES `assignmentbuilding` WRITE;
-INSERT INTO `assignmentbuilding` VALUES (1,2,1,NULL,NULL,NULL,NULL),(2,2,3,NULL,NULL,NULL,NULL),(3,3,1,NULL,NULL,NULL,NULL),(4,3,4,NULL,NULL,NULL,NULL);
+INSERT INTO `assignmentbuilding` VALUES (1,2,1,NULL,NULL,NULL,NULL)
+                                      ,(2,2,3,NULL,NULL,NULL,NULL)
+                                      ,(3,3,1,NULL,NULL,NULL,NULL)
+                                      ,(4,3,4,NULL,NULL,NULL,NULL);
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `assignmentcustomer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
 SET character_set_client = utf8mb4 ;
 CREATE TABLE `assignmentcustomer` (
                                       `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -164,9 +183,21 @@ CREATE TABLE `rentarea` (
                             CONSTRAINT `rentarea_building` FOREIGN KEY (`buildingid`) REFERENCES `building` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
+CREATE INDEX idx_rentarea_value ON rentarea(value);
 
 LOCK TABLES `rentarea` WRITE;
-INSERT INTO `rentarea` VALUES (1,100,1,NULL,NULL,NULL,NULL),(2,200,1,NULL,NULL,NULL,NULL),(3,200,2,NULL,NULL,NULL,NULL),(4,300,2,NULL,NULL,NULL,NULL),(5,400,2,NULL,NULL,NULL,NULL),(6,300,3,NULL,NULL,NULL,NULL),(7,400,3,NULL,NULL,NULL,NULL),(8,500,3,NULL,NULL,NULL,NULL),(9,100,4,NULL,NULL,NULL,NULL),(10,400,4,NULL,NULL,NULL,NULL),(11,250,4,NULL,NULL,NULL,NULL),(24,700,6,NULL,NULL,NULL,NULL);
+INSERT INTO `rentarea` VALUES (1,100,1,NULL,NULL,NULL,NULL)
+                            ,(2,200,1,NULL,NULL,NULL,NULL)
+                            ,(3,200,2,NULL,NULL,NULL,NULL)
+                            ,(4,300,2,NULL,NULL,NULL,NULL)
+                            ,(5,400,2,NULL,NULL,NULL,NULL)
+                            ,(6,300,3,NULL,NULL,NULL,NULL)
+                            ,(7,400,3,NULL,NULL,NULL,NULL)
+                            ,(8,500,3,NULL,NULL,NULL,NULL)
+                            ,(9,100,4,NULL,NULL,NULL,NULL)
+                            ,(10,400,4,NULL,NULL,NULL,NULL)
+                            ,(11,250,4,NULL,NULL,NULL,NULL)
+                            ,(24,700,6,NULL,NULL,NULL,NULL);
 
 UNLOCK TABLES;
 
@@ -205,6 +236,8 @@ CREATE TABLE `transaction` (
                                KEY `fk_customer_transaction` (`customerid`),
                                CONSTRAINT `fk_customer_transaction` FOREIGN KEY (`customerid`) REFERENCES `customer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE INDEX idx_transaction_code ON transaction(code);
 
 LOCK TABLES `transaction` WRITE;
 INSERT INTO `transaction` VALUES (1,'CSKH','Gọi điện thoại tư vấn',1,NULL,NULL,NULL, NULL, NULL),
